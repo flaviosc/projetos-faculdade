@@ -19,8 +19,6 @@ public class Country {
     private String headOfState;
     private int capital;
     private String code2;
-    private int cities;
-    private List<String> languages = new ArrayList<>();
 
     public String getCode() {
         return code;
@@ -141,23 +139,4 @@ public class Country {
     public void setCode2(String code2) {
         this.code2 = code2;
     }
-
-    public int getCities() {
-        return cities;
-    }
-
-    public void setCities(int cities) {
-        this.cities = cities;
-    }
-
-    public List<String> getLanguages() {
-        return languages;
-    }
-
-    public void setLanguages(List<String> languages) {
-        this.languages = languages;
-    }
-    
-    
-    
 }

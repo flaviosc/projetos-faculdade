@@ -81,36 +81,46 @@ public class JDBCCountryDAO implements CountryDAO {
     }
 
     //query de quantidade de cidades
-    public void Cidades(String nome) throws SQLException {
-        ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM city where CountryCode = '" + nome + "'");
-        Country country = new Country();
-        country.setCities(rs.getInt("COUNT(*)"));
-    }
     
-    public void Linguagens(String nome) throws SQLException {
-        ResultSet rs = stmt.executeQuery("select language from countrylanguage where CountryCode = (select Code from country where Name = 'Argentina')");
-        Country country = new Country();
-        country.setLanguages(rs.getString(""));
-    }
+    /*public int Cidades(String nome) throws SQLException {
+        int countCidades;
+        ResultSet qtdeCidadesQuery = stmt.executeQuery("SELECT COUNT(*) FROM city where CountryCode = '%" + nome + "%'");
+        while(qtdeCidadesQuery.next()){
+           countCidades = Integer.paseInt(qtdeCidadesQuery.getString());
+        }
+        return 
+    }*/
     
     //FALTA COLOCAR AS LISTAS 
     @Override
     public List<Country> listarNome(String nome) throws SQLException {
-        List<Country> countries = new ArrayList<Country>();
+        List<Country> countries = new ArrayList<>();
+        String getEnum = new String();
         try {
-            ResultSet rs = stmt.executeQuery("SELECT * FROM country WHERE nome like '%" + nome + "%'");
+            ResultSet rs = stmt.executeQuery("select * from country inner join"
+                    + " countrylanguage on country.code = countrylanguage.CountryCode"
+                    + "  where name like '%" + nome + "%'");
             while (rs.next()) {
                 Country country = new Country();
+                CountryLanguage countryLanguage = new CountryLanguage();
+                
                 country.setCode(rs.getString("Code"));
                 country.setCode2(rs.getString("Code2"));
                 country.setLocalName(rs.getString("LocalName"));
                 country.setName(rs.getString("Name"));
                 country.setContinent(rs.getString("Continent"));
-                country.setLifeExpectancy(rs.getFloat("LifeExpectance"));
-                Cidades(nome);
-                //LÍNGUA OFICIAL
-                //ORDENAÇÃO DAS LÍNGUAS FALADAS POR PERCENTUAL
+                country.setLifeExpectancy(rs.getFloat("LifeExpectancy"));
                 country.setHeadOfState(rs.getString("HeadOfState"));
+                countryLanguage.setCountryCode(rs.getString("CountryCode"));
+                getEnum = rs.getString("IsOfficial");
+                countryLanguage.setIsOfficial(getEnum);
+                
+                if("T".equals(countryLanguage.getIsOfficial())){
+                    countryLanguage.setLanguage(rs.getString("Language"));
+                }              
+                //ORDENAÇÃO DAS LÍNGUAS FALADAS POR PERCENTUAL
+
+                countryLanguage.setPercentage(rs.getFloat("Percentage"));
                 countries.add(country);
             }
          } catch (Exception e) {

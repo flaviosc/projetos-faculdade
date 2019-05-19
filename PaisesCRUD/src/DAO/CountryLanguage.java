@@ -1,11 +1,12 @@
 package DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CountryLanguage {
     private String countryCode;
     private String language;
-    private List<String> isOfficial;
+    private String isOfficial = new String();
     private float percentage;
 
     public String getCountryCode() {
@@ -24,11 +25,11 @@ public class CountryLanguage {
         this.language = language;
     }
 
-    public List<String> getIsOfficial() {
+    public String getIsOfficial() {
         return isOfficial;
     }
 
-    public void setIsOfficial(List<String> isOfficial) {
+    public void setIsOfficial(String isOfficial) {
         this.isOfficial = isOfficial;
     }
 
