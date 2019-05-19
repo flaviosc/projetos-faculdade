@@ -80,6 +80,19 @@ public class JDBCCountryDAO implements CountryDAO {
         }
     }
 
+    //query de quantidade de cidades
+    public void Cidades(String nome) throws SQLException {
+        ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM city where CountryCode = '" + nome + "'");
+        Country country = new Country();
+        country.setCities(rs.getInt("COUNT(*)"));
+    }
+    
+    public void Linguagens(String nome) throws SQLException {
+        ResultSet rs = stmt.executeQuery("select language from countrylanguage where CountryCode = (select Code from country where Name = 'Argentina')");
+        Country country = new Country();
+        country.setLanguages(rs.getString(""));
+    }
+    
     //FALTA COLOCAR AS LISTAS 
     @Override
     public List<Country> listarNome(String nome) throws SQLException {
@@ -92,9 +105,9 @@ public class JDBCCountryDAO implements CountryDAO {
                 country.setCode2(rs.getString("Code2"));
                 country.setLocalName(rs.getString("LocalName"));
                 country.setName(rs.getString("Name"));
-               // country.setContinent(rs.getArray("Continent"));
+                country.setContinent(rs.getString("Continent"));
                 country.setLifeExpectancy(rs.getFloat("LifeExpectance"));
-                //CIDADES
+                Cidades(nome);
                 //LÍNGUA OFICIAL
                 //ORDENAÇÃO DAS LÍNGUAS FALADAS POR PERCENTUAL
                 country.setHeadOfState(rs.getString("HeadOfState"));
