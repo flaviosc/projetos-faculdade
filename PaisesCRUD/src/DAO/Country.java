@@ -19,6 +19,8 @@ public class Country {
     private String headOfState;
     private int capital;
     private String code2;
+    private int cities;
+    private String languagesOfficial = new String();
 
     public String getCode() {
         return code;
@@ -139,4 +141,22 @@ public class Country {
     public void setCode2(String code2) {
         this.code2 = code2;
     }
+
+    public int getCities() {
+        return cities;
+    }
+
+    public void setCities(int cities) {
+        this.cities = cities;
+    }
+
+    public String getLanguagesOfficial() {
+        return languagesOfficial;
+    }
+
+    public void setLanguagesOfficial(String languagesOfficial) {
+        this.languagesOfficial = languagesOfficial;
+    }
+   
+    
 }

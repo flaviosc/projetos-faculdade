@@ -5,6 +5,13 @@
  */
 package Jframe;
 
+import DAO.Country;
+import DAO.JDBCCountryDAO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Cynthia
@@ -46,7 +53,7 @@ public class Editar extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
         btnSairEdit = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Editar"));
 
@@ -83,6 +90,12 @@ public class Editar extends javax.swing.JFrame {
 
         jLabel5.setText("Expectativa de Vida:");
 
+        txtLifeExpectancyEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLifeExpectancyEditActionPerformed(evt);
+            }
+        });
+
         jLabel6.setText("Código Alternativo: ");
 
         jLabel7.setText("Línguas Oficiais: ");
@@ -90,6 +103,11 @@ public class Editar extends javax.swing.JFrame {
         jCheckBox1.setText("jCheckBox1");
 
         btnSairEdit.setText("Cancelar");
+        btnSairEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairEditActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -214,8 +232,26 @@ public class Editar extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNameEditActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+        try {
+            Country country = new Country();
+            country.setLocalName(this.txtLocalNameEdit.getText());
+            country.setName(this.txtNameEdit.getText());
+            country.setLifeExpectancy(Float.parseFloat(this.txtLifeExpectancyEdit.getText()));
+            JDBCCountryDAO countryDao = new JDBCCountryDAO();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Editar.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Editar.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnSairEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairEditActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnSairEditActionPerformed
+
+    private void txtLifeExpectancyEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLifeExpectancyEditActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLifeExpectancyEditActionPerformed
 
     /**
      * @param args the command line arguments

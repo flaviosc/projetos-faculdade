@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static sun.awt.windows.ThemeReader.getEnum;
 
 public class JDBCCountryDAO implements CountryDAO {
     private Conexao con;
@@ -80,16 +81,52 @@ public class JDBCCountryDAO implements CountryDAO {
         }
     }
 
-    //query de quantidade de cidades
-    
-    /*public int Cidades(String nome) throws SQLException {
-        int countCidades;
-        ResultSet qtdeCidadesQuery = stmt.executeQuery("SELECT COUNT(*) FROM city where CountryCode = '%" + nome + "%'");
-        while(qtdeCidadesQuery.next()){
-           countCidades = Integer.paseInt(qtdeCidadesQuery.getString());
+    //query de quantidade de cidades pelo nome    
+    public void Cidades(String nome) throws SQLException {
+        List<Country> countries = new ArrayList<>();
+        try {
+            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM city as ct "
+                                            + "inner join country as c on ct.countrycode = c.code "
+                                            + "where c.name = '%" + nome + "%'");
+            while(rs.next()) {
+                Country country = new Country();
+                country.setCities(rs.getInt("COUNT(*)"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return 
-    }*/
+    }
+    
+    //query quantidade de cidades pelo código
+    public void CidadesCode(String code) throws SQLException {
+        ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM city as ct "
+                                        + "inner join country as c on ct.countrycode = c.code "
+                                        + "where c.name = '%" + code + "%'");
+        Country country = new Country();
+        country.setCities(rs.getInt("COUNT(*)"));
+    }
+  
+    // QUERY DE LINGUAGES OFICIAIS
+    public void LinguagemOficial(String nome) throws SQLException {
+        List<Country> countries = new ArrayList<>();
+        String getEnum = new String();
+        try {
+            ResultSet rs = stmt.executeQuery("select language from countrylanguage as cl "
+                                            + "inner join country as c on cl.countrycode = c.code "
+                                            + "where c.name = '" + nome + "' and cl.isofficial = 't'");
+            while(rs.next()) {
+                Country country = new Country();              
+
+                getEnum = rs.getString("IsOfficial");
+                country.setLanguagesOfficial(getEnum);
+                System.out.println(getEnum);
+                
+                countries.add(country);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+    }
     
     //FALTA COLOCAR AS LISTAS 
     @Override
@@ -97,9 +134,7 @@ public class JDBCCountryDAO implements CountryDAO {
         List<Country> countries = new ArrayList<>();
         String getEnum = new String();
         try {
-            ResultSet rs = stmt.executeQuery("select * from country inner join"
-                    + " countrylanguage on country.code = countrylanguage.CountryCode"
-                    + "  where name like '%" + nome + "%'");
+            ResultSet rs = stmt.executeQuery("select * from country where name like '%" + nome + "%' order by name");
             while (rs.next()) {
                 Country country = new Country();
                 CountryLanguage countryLanguage = new CountryLanguage();
@@ -111,16 +146,19 @@ public class JDBCCountryDAO implements CountryDAO {
                 country.setContinent(rs.getString("Continent"));
                 country.setLifeExpectancy(rs.getFloat("LifeExpectancy"));
                 country.setHeadOfState(rs.getString("HeadOfState"));
-                countryLanguage.setCountryCode(rs.getString("CountryCode"));
-                getEnum = rs.getString("IsOfficial");
-                countryLanguage.setIsOfficial(getEnum);
+                Cidades(nome);
+                LinguagemOficial(nome);
                 
-                if("T".equals(countryLanguage.getIsOfficial())){
-                    countryLanguage.setLanguage(rs.getString("Language"));
-                }              
+//                NÃO VAI FUNCIONAR PQ ELE SÓ ADICIONA NA LISTA O COUNTRY
+//                getEnum = rs.getString("IsOfficial");
+//                countryLanguage.setIsOfficial(getEnum);
+//                
+//                if("T".equals(countryLanguage.getIsOfficial())){
+//                    countryLanguage.setLanguage(rs.getString("Language"));
+//                }              
                 //ORDENAÇÃO DAS LÍNGUAS FALADAS POR PERCENTUAL
 
-                countryLanguage.setPercentage(rs.getFloat("Percentage"));
+               // countryLanguage.setPercentage(rs.getFloat("Percentage"));
                 countries.add(country);
             }
          } catch (Exception e) {
