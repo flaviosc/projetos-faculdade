@@ -191,8 +191,8 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="txtCode2" alignment="0" max="32767" attributes="0"/>
                                       <Component id="txtContinent" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jTextField8" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jTextField9" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtLifeExpectancy" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtCities" alignment="0" max="32767" attributes="0"/>
                                       <Component id="cboxIsOfficial" alignment="0" pref="247" max="32767" attributes="0"/>
                                       <Component id="cboxLanguage" alignment="0" max="32767" attributes="0"/>
                                       <Component id="txtHeadOfState" alignment="0" max="32767" attributes="0"/>
@@ -244,12 +244,12 @@
                           <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField8" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtLifeExpectancy" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField9" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtCities" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -350,9 +350,9 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtContinent">
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField8">
+                <Component class="javax.swing.JTextField" name="txtLifeExpectancy">
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField9">
+                <Component class="javax.swing.JTextField" name="txtCities">
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cboxLanguage">
                   <Properties>
@@ -380,6 +380,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Remover"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRemoverActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnSair">
                   <Properties>
@@ -501,6 +504,9 @@
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tableFormularioMouseClicked"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

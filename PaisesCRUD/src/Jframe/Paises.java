@@ -59,8 +59,8 @@ public class Paises extends javax.swing.JFrame {
         txtCode = new javax.swing.JTextField();
         txtCode2 = new javax.swing.JTextField();
         txtContinent = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
+        txtLifeExpectancy = new javax.swing.JTextField();
+        txtCities = new javax.swing.JTextField();
         cboxLanguage = new javax.swing.JComboBox();
         txtHeadOfState = new javax.swing.JTextField();
         btnEditar = new javax.swing.JToggleButton();
@@ -151,6 +151,11 @@ public class Paises extends javax.swing.JFrame {
         });
 
         btnRemover.setText("Remover");
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
 
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -188,8 +193,8 @@ public class Paises extends javax.swing.JFrame {
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtCode2)
                             .addComponent(txtContinent)
-                            .addComponent(jTextField8)
-                            .addComponent(jTextField9)
+                            .addComponent(txtLifeExpectancy)
+                            .addComponent(txtCities)
                             .addComponent(cboxIsOfficial, 0, 247, Short.MAX_VALUE)
                             .addComponent(cboxLanguage, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtHeadOfState)
@@ -230,11 +235,11 @@ public class Paises extends javax.swing.JFrame {
                 .addGap(9, 9, 9)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtLifeExpectancy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCities, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
@@ -280,6 +285,11 @@ public class Paises extends javax.swing.JFrame {
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        tableFormulario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableFormularioMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tableFormulario);
@@ -453,6 +463,44 @@ public class Paises extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBuscarCodeActionPerformed
 
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        try {
+            Country country = new Country();
+            country.setLocalName(this.txtLocalName.getText());
+            country.setName(this.txtName.getText());
+            country.setCode(this.txtCode.getText());
+            country.setCode2(this.txtCode2.getText());
+            country.setContinent(this.txtContinent.getText());
+            country.setLifeExpectancy(Float.parseFloat(this.txtLifeExpectancy.getText()));
+            //country.setLanguagesOfficial(this.cboxIsOfficial.get);
+            //country.setLanguages(this.cboxLanguage.get);
+            country.setHeadOfState(this.txtHeadOfState.getText());
+            
+            JDBCCountryDAO countryDao = new JDBCCountryDAO();
+            if (countryDao.remover(country) > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Páis excluído com sucesso!");
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Paises.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Paises.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnRemoverActionPerformed
+
+    private void tableFormularioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableFormularioMouseClicked
+        int selecao = tableFormulario.getSelectedRow();
+        
+        txtLocalName.setText(tableFormulario.getValueAt(selecao, 0).toString());
+        txtName.setText(tableFormulario.getValueAt(selecao, 1).toString());
+        txtCode.setText(tableFormulario.getValueAt(selecao, 2).toString());
+        txtCode2.setText(tableFormulario.getValueAt(selecao, 3).toString());
+        txtContinent.setText(tableFormulario.getValueAt(selecao, 4).toString());
+        txtLifeExpectancy.setText(tableFormulario.getValueAt(selecao, 5).toString());
+        txtCities.setText(tableFormulario.getValueAt(selecao, 6).toString());
+        //falta os combobox
+        txtHeadOfState.setText(tableFormulario.getValueAt(selecao, 9).toString());
+    }//GEN-LAST:event_tableFormularioMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -529,10 +577,9 @@ public class Paises extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JPanel panelBase;
     private javax.swing.JTable tableFormulario;
+    private javax.swing.JTextField txtCities;
     private javax.swing.JTextField txtCode;
     private javax.swing.JTextField txtCode2;
     private javax.swing.JTextField txtCodePesquisa;
@@ -541,6 +588,7 @@ public class Paises extends javax.swing.JFrame {
     private javax.swing.JTextField txtCodePesquisa3;
     private javax.swing.JTextField txtContinent;
     private javax.swing.JTextField txtHeadOfState;
+    private javax.swing.JTextField txtLifeExpectancy;
     private javax.swing.JTextField txtLocalName;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtNomePesquisa;

@@ -44,7 +44,7 @@ public class Editar extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         cboxContinentEdit = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
-        txtHeadOfStateEdit = new javax.swing.JComboBox();
+        cboxHeadOfStateEdit = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         txtLifeExpectancyEdit = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -86,7 +86,7 @@ public class Editar extends javax.swing.JFrame {
 
         jLabel4.setText("Forma de Governo:");
 
-        txtHeadOfStateEdit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboxHeadOfStateEdit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel5.setText("Expectativa de Vida:");
 
@@ -136,7 +136,7 @@ public class Editar extends javax.swing.JFrame {
                                     .addComponent(jLabel3))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtHeadOfStateEdit, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cboxHeadOfStateEdit, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(cboxContinentEdit, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtLifeExpectancyEdit)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -169,7 +169,7 @@ public class Editar extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtHeadOfStateEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboxHeadOfStateEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -236,8 +236,17 @@ public class Editar extends javax.swing.JFrame {
             Country country = new Country();
             country.setLocalName(this.txtLocalNameEdit.getText());
             country.setName(this.txtNameEdit.getText());
+            country.setContinent(this.cboxContinentEdit.getSelectedItem().toString());
+            country.setHeadOfState(this.cboxHeadOfStateEdit.getSelectedItem().toString());
             country.setLifeExpectancy(Float.parseFloat(this.txtLifeExpectancyEdit.getText()));
+            if (txtCode2Edit != null) {
+                country.setCode2(this.txtCode2Edit.getText());
+            }
+            
             JDBCCountryDAO countryDao = new JDBCCountryDAO();
+            if (countryDao.remover(country) > 0) {
+                JOptionPane.showMessageDialog(rootPane, "País excluído com sucesso!");
+            }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Editar.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -292,6 +301,7 @@ public class Editar extends javax.swing.JFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnSairEdit;
     private javax.swing.JComboBox cboxContinentEdit;
+    private javax.swing.JComboBox cboxHeadOfStateEdit;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -303,7 +313,6 @@ public class Editar extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtCode2Edit;
-    private javax.swing.JComboBox txtHeadOfStateEdit;
     private javax.swing.JTextField txtLifeExpectancyEdit;
     private javax.swing.JTextField txtLocalNameEdit;
     private javax.swing.JTextField txtNameEdit;
