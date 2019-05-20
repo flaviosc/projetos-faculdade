@@ -20,7 +20,7 @@ public class Country {
     private int capital;
     private String code2;
     private int cities;
-    private String languagesOfficial;
+    private List<String> languagesOfficial = new ArrayList<>();
     private String languages;
 
     public String getCode() {
@@ -151,11 +151,11 @@ public class Country {
         this.cities = cities;
     }
 
-    public String getLanguagesOfficial() {
+    public List<String> getLanguagesOfficial() {
         return languagesOfficial;
     }
 
-    public void setLanguagesOfficial(String languagesOfficial) {
+    public void setLanguagesOfficial(List<String> languagesOfficial) {
         this.languagesOfficial = languagesOfficial;
     }
 
@@ -166,7 +166,9 @@ public class Country {
     public void setLanguages(String languages) {
         this.languages = languages;
     }
-   
     
-    
+    public String adicionar(String valor){
+        languagesOfficial.add(valor);
+        return valor;
+    }
 }

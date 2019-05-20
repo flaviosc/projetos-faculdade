@@ -421,7 +421,7 @@ public class Paises extends javax.swing.JFrame {
     private void btnBuscar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar3ActionPerformed
         try {
             JDBCCountryDAO countryDao = new JDBCCountryDAO();
-            List<Country> countries = countryDao.listarNome(txtName.getText());
+            List<Country> countries = countryDao.listarNome(txtNomePesquisa.getText());
             tableFormulario.setAutoResizeMode(tableFormulario.AUTO_RESIZE_ALL_COLUMNS);
             DefaultTableModel model = (DefaultTableModel) tableFormulario.getModel();
             model.setNumRows(0);
