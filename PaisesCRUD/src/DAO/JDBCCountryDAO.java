@@ -15,6 +15,8 @@ public class JDBCCountryDAO implements CountryDAO {
     private Statement stmt;
     private Statement stmt2;
     private Statement stmt3;
+    private Statement stmt4;
+    private Statement stmt5;
     
     public JDBCCountryDAO() throws SQLDataException, ClassNotFoundException, SQLException {
         con = new Conexao();
@@ -22,6 +24,8 @@ public class JDBCCountryDAO implements CountryDAO {
             stmt = (Statement) con.getCon().createStatement();
             stmt2 = (Statement) con.getCon().createStatement();
             stmt3 = (Statement) con.getCon().createStatement();
+            stmt4 = (Statement) con.getCon().createStatement();
+            stmt5 = (Statement) con.getCon().createStatement();
         } catch (SQLDataException e) {
             throw e;
         }
@@ -55,7 +59,7 @@ public class JDBCCountryDAO implements CountryDAO {
 
     //FALTA COLOCAR A LIGUAGEM AQUI
         @Override
-        public int alterar(Country country, CountryLanguage countryL) throws SQLException {
+        public int alterar(Country country) throws SQLException {
             try {
                 return stmt.executeUpdate("UPDATE country AS c INNER JOIN countrylanguage AS cl ON c.Code = cl.CountryCode SET c.LocalName = '" 
                                         + country.getLocalName() + "',c.Name = '"
@@ -63,9 +67,9 @@ public class JDBCCountryDAO implements CountryDAO {
                                         + country.getContinent() + "', c.GovernmentForm = '"
                                         + country.getGovernmentForm() + "', c.LifeExpectancy = '"
                                         + country.getLifeExpectancy() + "', c.Code2 = '"
-                                        + country.getCode2()+ "', cl.Language = '"
-                                        + countryL.getLanguage()+ "' WHERE c.Code = '"
-                                        + country.getCode()+ "' AND cl.IsOfficial = 'T'") ;
+                                        + country.getCode2() + "', cl.Language = '"
+                                        + country.getLanguagesOfficial()+ "' WHERE c.Code = '"
+                                        + country.getCode() + "' AND cl.IsOfficial = 'T'") ;
             } catch (SQLException e) {
                 throw e;
             } finally {
@@ -82,6 +86,31 @@ public class JDBCCountryDAO implements CountryDAO {
             throw e;
         } finally {
             con.fecharConexao();
+        }
+    }
+    
+    public void Languages() {
+        List<Country> language = new ArrayList<>();
+        try {
+            ResultSet rs4 = stmt4.executeQuery("select language from countrylanguage");
+            while (rs4.next()) {
+                Country country = new Country();
+                country.adicionar(rs4.getString("language"));
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void Governments() {
+        try {
+            ResultSet rs5 = stmt5.executeQuery("select governmentform from country");
+            while(rs5.next()) {
+                Country country = new Country();
+                country.adicionarGovernments(rs5.getString("governmentform"));
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -129,7 +158,8 @@ public class JDBCCountryDAO implements CountryDAO {
                                             + "where c.name like '%" + nome + "%' and cl.isofficial = 't'");
             while(rs3.next()) {
                 Country language = new Country();              
-                language.adicionar(rs3.getString("language"));       
+                language.adicionarOficial(rs3.getString("language")); 
+                language.Concatenar();
                 System.out.println(language.getLanguagesOfficial());
                 countries.add(language);
             }
@@ -176,17 +206,12 @@ public class JDBCCountryDAO implements CountryDAO {
                 country.setContinent(rs.getString("Continent"));
                 country.setLifeExpectancy(rs.getFloat("LifeExpectancy"));
                 country.setHeadOfState(rs.getString("HeadOfState"));
-                
+                country.setGovernmentForm(rs.getString("GovernmentForm"));
                 this.Cidades(nome);
                 this.LinguagemOficial(nome);
-                
-//                NÃO VAI FUNCIONAR PQ ELE SÓ ADICIONA NA LISTA O COUNTRY
-//                getEnum = rs.getString("IsOfficial");
-//                countryLanguage.setIsOfficial(getEnum);
-//                
-//                if("T".equals(countryLanguage.getIsOfficial())){
-//                    countryLanguage.setLanguage(rs.getString("Language"));
-//                }              
+                this.Governments();
+                this.Languages();
+          
                 //ORDENAÇÃO DAS LÍNGUAS FALADAS POR PERCENTUAL
 
                // countryLanguage.setPercentage(rs.getFloat("Percentage"));

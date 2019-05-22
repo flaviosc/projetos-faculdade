@@ -8,8 +8,11 @@ package Jframe;
 import DAO.Country;
 import DAO.JDBCCountryDAO;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,7 +27,23 @@ public class Editar extends javax.swing.JFrame {
     public Editar() {
         initComponents();
     }
+    
+    private Paises dados;
 
+    public void EnviarDados(Paises dados, String localName, String name, String code2, String continent, String lifeExpectancy, String governmentForm) {
+        txtCode2Edit.setEditable(false);
+        txtLocalNameEdit.setText(localName);
+        txtNameEdit.setText(name);
+        txtCode2Edit.setText(code2);
+        
+        if (txtCode2Edit.getText().isEmpty()) {
+            txtCode2Edit.setEditable(true);
+        }        
+        
+        txtLifeExpectancyEdit.setText(lifeExpectancy);
+        
+        //FALTA COLOCAR OS COMBOBOX
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,7 +63,7 @@ public class Editar extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         cboxContinentEdit = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
-        cboxHeadOfStateEdit = new javax.swing.JComboBox();
+        cboxGovernmentForm = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         txtLifeExpectancyEdit = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -86,7 +105,12 @@ public class Editar extends javax.swing.JFrame {
 
         jLabel4.setText("Forma de Governo:");
 
-        cboxHeadOfStateEdit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboxGovernmentForm.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
+        cboxGovernmentForm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxGovernmentFormActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Expectativa de Vida:");
 
@@ -136,7 +160,7 @@ public class Editar extends javax.swing.JFrame {
                                     .addComponent(jLabel3))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cboxHeadOfStateEdit, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cboxGovernmentForm, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(cboxContinentEdit, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtLifeExpectancyEdit)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -169,7 +193,7 @@ public class Editar extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(cboxHeadOfStateEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboxGovernmentForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -236,16 +260,14 @@ public class Editar extends javax.swing.JFrame {
             Country country = new Country();
             country.setLocalName(this.txtLocalNameEdit.getText());
             country.setName(this.txtNameEdit.getText());
-            country.setContinent(this.cboxContinentEdit.getSelectedItem().toString());
-            country.setHeadOfState(this.cboxHeadOfStateEdit.getSelectedItem().toString());
+            //country.setContinent(this.cboxContinentEdit.getSelectedItem().toString());
+            //country.setHeadOfState(this.cboxHeadOfStateEdit.getSelectedItem().toString());
             country.setLifeExpectancy(Float.parseFloat(this.txtLifeExpectancyEdit.getText()));
-            if (txtCode2Edit != null) {
-                country.setCode2(this.txtCode2Edit.getText());
-            }
+            country.setCode2(this.txtCode2Edit.getText());     
             
             JDBCCountryDAO countryDao = new JDBCCountryDAO();
-            if (countryDao.remover(country) > 0) {
-                JOptionPane.showMessageDialog(rootPane, "País excluído com sucesso!");
+            if (countryDao.alterar(country) > 0) {
+                JOptionPane.showMessageDialog(rootPane, "País alterado com sucesso!");
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Editar.class.getName()).log(Level.SEVERE, null, ex);
@@ -261,6 +283,12 @@ public class Editar extends javax.swing.JFrame {
     private void txtLifeExpectancyEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLifeExpectancyEditActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtLifeExpectancyEditActionPerformed
+
+    private void cboxGovernmentFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxGovernmentFormActionPerformed
+        DefaultComboBoxModel modelo= (DefaultComboBoxModel) cboxGovernmentForm.getModel(); 
+        Country country = new Country();
+        cboxGovernmentForm.addItem(country.getGovernmentForm());
+    }//GEN-LAST:event_cboxGovernmentFormActionPerformed
 
     /**
      * @param args the command line arguments
@@ -301,7 +329,7 @@ public class Editar extends javax.swing.JFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnSairEdit;
     private javax.swing.JComboBox cboxContinentEdit;
-    private javax.swing.JComboBox cboxHeadOfStateEdit;
+    private javax.swing.JComboBox cboxGovernmentForm;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
