@@ -181,6 +181,7 @@ public class Country {
         return concatenaOficial;
     }
 
+    
     public void setConcatenaOficial(String concatenaOficial) {
         this.concatenaOficial = concatenaOficial;
     }
@@ -209,8 +210,6 @@ public class Country {
                 concatenaOficial = concatenaOficial + ", " + str;
             }
         }
-        System.out.println(concatenaOficial);
+        System.out.println("concatena" + concatenaOficial);
     }
-
-   
 }

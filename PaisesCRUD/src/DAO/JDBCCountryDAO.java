@@ -149,20 +149,18 @@ public class JDBCCountryDAO implements CountryDAO {
     // QUERY DE LINGUAGES OFICIAIS POR NOME
     public void LinguagemOficial(String nome) throws SQLException {
         List<Country> countries = new ArrayList<>();
+        Country language = new Country();
         try {
             ResultSet rs3 = stmt3.executeQuery("select language from countrylanguage as cl "
                                             + "inner join country as c on cl.countrycode = c.code "
                                             + "where c.name like '%" + nome + "%' and cl.isofficial = 't'");
-            System.out.println("select language from countrylanguage as cl "
-                                            + "inner join country as c on cl.countrycode = c.code "
-                                            + "where c.name like '%" + nome + "%' and cl.isofficial = 't'");
-            while(rs3.next()) {
-                Country language = new Country();              
-                language.adicionarOficial(rs3.getString("language")); 
-                language.Concatenar();
-                System.out.println(language.getLanguagesOfficial());
-                countries.add(language);
+
+            while(rs3.next()) {                
+               language.adicionarOficial(rs3.getString("language")); 
+               countries.add(language);
             }
+            language.Concatenar();
+            
         } catch (Exception e) {
             e.printStackTrace();
         } 
@@ -181,7 +179,6 @@ public class JDBCCountryDAO implements CountryDAO {
             while(rs3.next()) {
                 Country language = new Country();              
                 language.adicionar(rs3.getString("language"));       
-                System.out.println(language.getLanguagesOfficial());
                 countries.add(language);
             }
         } catch (Exception e) {

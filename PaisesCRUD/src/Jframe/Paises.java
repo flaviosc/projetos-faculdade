@@ -79,16 +79,12 @@ public class Paises extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableFormulario = new javax.swing.JTable();
-        jPanel11 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        txtCodePesquisa = new javax.swing.JTextField();
-        btnBuscarCode = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisa por Nome"));
 
-        jLabel7.setText("Nome: ");
+        jLabel7.setText("Nome ou Código: ");
 
         txtNomePesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -312,56 +308,14 @@ public class Paises extends javax.swing.JFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
-        );
-
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisa por Código"));
-
-        jLabel8.setText("Código:");
-
-        txtCodePesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodePesquisaActionPerformed(evt);
-            }
-        });
-
-        btnBuscarCode.setText("Pesquisar");
-        btnBuscarCode.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarCodeActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtCodePesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnBuscarCode)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtCodePesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnBuscarCode))
-                    .addComponent(jLabel8))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -372,8 +326,7 @@ public class Paises extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -383,17 +336,15 @@ public class Paises extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel8.getAccessibleContext().setAccessibleName("Pesquisa");
 
         javax.swing.GroupLayout panelBaseLayout = new javax.swing.GroupLayout(panelBase);
         panelBase.setLayout(panelBaseLayout);
@@ -426,10 +377,6 @@ public class Paises extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomePesquisaActionPerformed
 
-    private void txtCodePesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodePesquisaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodePesquisaActionPerformed
-
     private void btnBuscar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar3ActionPerformed
         try {
             JDBCCountryDAO countryDao = new JDBCCountryDAO();
@@ -438,7 +385,10 @@ public class Paises extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) tableFormulario.getModel();
             model.setNumRows(0);
             for (Country list : countries) {
-                model.addRow(new Object[] {list.getLocalName(), list.getName(), list.getCode(), list.getCode2(), list.getContinent(), list.getLifeExpectancy(), list.getCities(), list.getHeadOfState()});
+                model.addRow(new Object[] {list.getLocalName(), list.getName(), 
+                    list.getCode(), list.getCode2(), list.getContinent(), 
+                    list.getLifeExpectancy(), list.getCities(), 
+                    list.getHeadOfState(), list.getConcatenaOficial()});
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Paises.class.getName()).log(Level.SEVERE, null, ex);
@@ -472,23 +422,6 @@ public class Paises extends javax.swing.JFrame {
 
     
     
-    private void btnBuscarCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCodeActionPerformed
-        try {
-            JDBCCountryDAO countryDao = new JDBCCountryDAO();
-            List<Country> countries = countryDao.listarCod(txtCodePesquisa.getText());
-            tableFormulario.setAutoResizeMode(tableFormulario.AUTO_RESIZE_ALL_COLUMNS);
-            DefaultTableModel model = (DefaultTableModel) tableFormulario.getModel();
-            model.setNumRows(0);
-            for (Country list : countries) {
-                model.addRow(new Object[] {list.getLocalName(), list.getName(), list.getCode(), list.getCode2(), list.getContinent(), list.getLifeExpectancy(), list.getCities(), list.getHeadOfState(), list.getConcatenaOficial()});
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Paises.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(Paises.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnBuscarCodeActionPerformed
-
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         try {
             Country country = new Country();
@@ -568,7 +501,6 @@ public class Paises extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar3;
-    private javax.swing.JButton btnBuscarCode;
     private javax.swing.JToggleButton btnEditar;
     private javax.swing.JButton btnRemover;
     private javax.swing.JButton btnSair;
@@ -582,10 +514,8 @@ public class Paises extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
@@ -595,7 +525,6 @@ public class Paises extends javax.swing.JFrame {
     private javax.swing.JTextField txtCities;
     private javax.swing.JTextField txtCode;
     private javax.swing.JTextField txtCode2;
-    private javax.swing.JTextField txtCodePesquisa;
     private javax.swing.JTextField txtContinent;
     private javax.swing.JTextField txtHeadOfState;
     private javax.swing.JTextField txtLanguage;
