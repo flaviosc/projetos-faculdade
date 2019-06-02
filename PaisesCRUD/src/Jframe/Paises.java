@@ -439,16 +439,18 @@ public class Paises extends javax.swing.JFrame {
     private void btnBuscar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar3ActionPerformed
         try {
             JDBCCountryDAO countryDao = new JDBCCountryDAO();
-            List<Country> countries = countryDao.listarNome(txtNomePesquisa.getText());
-            tableFormulario.setAutoResizeMode(tableFormulario.AUTO_RESIZE_ALL_COLUMNS);
-            DefaultTableModel model = (DefaultTableModel) tableFormulario.getModel();
-            model.setNumRows(0);
-            for (Country list : countries) {
-                model.addRow(new Object[] {list.getLocalName(), list.getName(), 
-                    list.getCode(), list.getCode2(), list.getContinent(), 
-                    list.getLifeExpectancy(), list.getCities(), 
-                    list.getHeadOfState(), list.getConcatenaOficial(),
-                    list.getConcatenaLanguages()});
+            if(txtNomePesquisa.getText().length() != 0){
+                List<Country> countries = countryDao.listarNome(txtNomePesquisa.getText());
+                tableFormulario.setAutoResizeMode(tableFormulario.AUTO_RESIZE_ALL_COLUMNS);
+                DefaultTableModel model = (DefaultTableModel) tableFormulario.getModel();
+                model.setNumRows(0);
+                for (Country list : countries) {
+                    model.addRow(new Object[] {list.getLocalName(), list.getName(), 
+                        list.getCode(), list.getCode2(), list.getContinent(), 
+                        list.getLifeExpectancy(), list.getCities(), 
+                        list.getHeadOfState(), list.getConcatenaOficial(),
+                        list.getConcatenaLanguages()});
+                }
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Paises.class.getName()).log(Level.SEVERE, null, ex);
@@ -540,18 +542,20 @@ public class Paises extends javax.swing.JFrame {
     private void btnBuscarCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCodeActionPerformed
         try {
             JDBCCountryDAO countryDao = new JDBCCountryDAO();
-            List<Country> countries = countryDao.listarCod(txtCodePesquisa.getText());
-            tableFormulario.setAutoResizeMode(tableFormulario.AUTO_RESIZE_ALL_COLUMNS);
-            DefaultTableModel model = (DefaultTableModel) tableFormulario.getModel();
-            model.setNumRows(0);
-            Country country = new Country();
+            if(txtCodePesquisa.getText().length() != 0){
+                List<Country> countries = countryDao.listarCod(txtCodePesquisa.getText());
+                tableFormulario.setAutoResizeMode(tableFormulario.AUTO_RESIZE_ALL_COLUMNS);
+                DefaultTableModel model = (DefaultTableModel) tableFormulario.getModel();
+                model.setNumRows(0);
+                Country country = new Country();
 
-            for (Country list : countries) {
-                model.addRow(new Object[] {list.getLocalName(), list.getName(), 
-                    list.getCode(), list.getCode2(), list.getContinent(), 
-                    list.getLifeExpectancy(), list.getCities(), 
-                    list.getHeadOfState(), list.getConcatenaOficial(),
-                    list.getConcatenaLanguages()});
+                for (Country list : countries) {
+                    model.addRow(new Object[] {list.getLocalName(), list.getName(), 
+                        list.getCode(), list.getCode2(), list.getContinent(), 
+                        list.getLifeExpectancy(), list.getCities(), 
+                        list.getHeadOfState(), list.getConcatenaOficial(),
+                        list.getConcatenaLanguages()});
+                }
             }
             
         } catch (ClassNotFoundException ex) {

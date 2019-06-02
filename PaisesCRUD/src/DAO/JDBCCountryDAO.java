@@ -71,9 +71,6 @@ public class JDBCCountryDAO implements CountryDAO {
         Country country = new Country();
         String linguagens = "";
         try {
-            System.out.println("select language from countrylanguage as cl "
-                                            + "inner join country as c on cl.countrycode = c.code "
-                                            + "where c.name = '" + valor + "' or c.code = '" + valor + "' order by percentage desc");
             ResultSet rs4 = stmt4.executeQuery("select language from countrylanguage as cl "
                                             + "inner join country as c on cl.countrycode = c.code "
                                             + "where c.name = '" + valor + "' or c.code = '" + valor + "' order by percentage desc");
@@ -83,7 +80,6 @@ public class JDBCCountryDAO implements CountryDAO {
             }
             country.ConcatenarLanguages();
             linguagens = country.getConcatenaLanguages();
-            System.out.println(linguagens);
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -114,7 +110,6 @@ public class JDBCCountryDAO implements CountryDAO {
                 country.setCities(rs2.getInt("COUNT(*)"));               
                 
                 cities = country.getCities();
-                System.out.println(cities);
                 
             }
         } catch (Exception e) {
@@ -180,7 +175,6 @@ public class JDBCCountryDAO implements CountryDAO {
             }
             language.Concatenar();
             languages = language.getConcatenaOficial();
-            System.out.println(languages);
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -194,7 +188,6 @@ public class JDBCCountryDAO implements CountryDAO {
         List<Country> countries = new ArrayList<>();
         try {
             ResultSet rs = stmt.executeQuery("select * from country where name like '%" + nome + "%' order by name");
-            System.out.println("select * from country where name like '%" + nome + "%' order by name");
             while (rs.next()) {
                 Country country = new Country();
                 
@@ -226,7 +219,6 @@ public class JDBCCountryDAO implements CountryDAO {
          List<Country> countries = new ArrayList<>();
         try {
             ResultSet rs = stmt.executeQuery("select * from country where code like '%" + code + "%' order by name");
-            System.out.println("select * from country where code like '%" + code + "%' order by name");
             while (rs.next()) {
                 Country country = new Country();
                 

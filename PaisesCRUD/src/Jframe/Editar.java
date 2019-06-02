@@ -21,27 +21,27 @@ import javax.swing.JOptionPane;
  */
 public class Editar extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Editar
-     */
+    private Paises dados;
+    
     public Editar() {
         initComponents();
+        
     }
     
     public void populaListaContinentes(String name) throws ClassNotFoundException, SQLException{
+        cboxContinentEdit.removeAllItems();
+        cboxGovernmentForm.removeAllItems();
         JDBCCountryDAO dao = new JDBCCountryDAO();
         List<Country> continentes = dao.listarNome(name);
         for (Country list : continentes) {
             cboxContinentEdit.addItem(list.getContinent());
-            System.out.println("continente: " + list.getContinent());
             cboxGovernmentForm.addItem(list.getGovernmentForm());
-        }
+        } 
     }
     
-    private Paises dados;
-
     public void EnviarDados(Paises dados, String localName, String name, 
-            String code2, String continent, String lifeExpectancy) throws ClassNotFoundException, SQLException {
+            String code2, String continent, String lifeExpectancy) 
+            throws ClassNotFoundException, SQLException {
         txtCode2Edit.setEditable(false);
         txtLocalNameEdit.setText(localName);
         txtNameEdit.setText(name);
@@ -80,7 +80,7 @@ public class Editar extends javax.swing.JFrame {
         txtCode2Edit = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
-        btnSairEdit = new javax.swing.JButton();
+        btnCancelarEdit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -140,11 +140,16 @@ public class Editar extends javax.swing.JFrame {
         jLabel7.setText("Línguas Oficiais: ");
 
         jCheckBox1.setText("jCheckBox1");
-
-        btnSairEdit.setText("Cancelar");
-        btnSairEdit.addActionListener(new java.awt.event.ActionListener() {
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSairEditActionPerformed(evt);
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+
+        btnCancelarEdit.setText("Cancelar");
+        btnCancelarEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarEditActionPerformed(evt);
             }
         });
 
@@ -187,7 +192,7 @@ public class Editar extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(btnEditar)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnSairEdit)))
+                                .addComponent(btnCancelarEdit)))
                         .addGap(0, 19, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -218,13 +223,13 @@ public class Editar extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(txtCode2Edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jLabel7))
-                .addGap(64, 64, 64)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jCheckBox1))
+                .addGap(68, 68, 68)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar)
-                    .addComponent(btnSairEdit))
+                    .addComponent(btnCancelarEdit))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -283,7 +288,7 @@ public class Editar extends javax.swing.JFrame {
             JDBCCountryDAO countryDao = new JDBCCountryDAO();
             if (countryDao.alterar(country) > 0) {
                 JOptionPane.showMessageDialog(rootPane, "País alterado com sucesso!");
-            }
+            }     
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Editar.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -291,9 +296,9 @@ public class Editar extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
-    private void btnSairEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairEditActionPerformed
+    private void btnCancelarEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarEditActionPerformed
         dispose();
-    }//GEN-LAST:event_btnSairEditActionPerformed
+    }//GEN-LAST:event_btnCancelarEditActionPerformed
 
     private void txtLifeExpectancyEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLifeExpectancyEditActionPerformed
         // TODO add your handling code here:
@@ -306,6 +311,10 @@ public class Editar extends javax.swing.JFrame {
     private void cboxContinentEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxContinentEditActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboxContinentEditActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -343,8 +352,8 @@ public class Editar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelarEdit;
     private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnSairEdit;
     private javax.swing.JComboBox cboxContinentEdit;
     private javax.swing.JComboBox cboxGovernmentForm;
     private javax.swing.JCheckBox jCheckBox1;
