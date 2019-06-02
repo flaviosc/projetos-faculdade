@@ -81,7 +81,10 @@ public class JDBCCountryDAO implements CountryDAO {
     @Override
     public int remover(Country country) throws SQLException {
         try {
-            return stmt.executeUpdate("DELETE FROM country WHERE id = " + country.getCode());
+            stmt.executeUpdate("DELETE FROM city WHERE CountryCode = '" + country.getCode() + "'");
+            stmt.executeUpdate("DELETE FROM countrylanguage WHERE CountryCode = '" + country.getCode() + "'");
+            return stmt.executeUpdate("DELETE FROM country WHERE Code = '" + country.getCode() + "'");
+            
         } catch (Exception e) {
             throw e;
         } finally {
