@@ -89,17 +89,28 @@ public class JDBCCountryDAO implements CountryDAO {
         }
     }
     
-    public void Languages() {
+    public String Languages(String valor) throws SQLException {
         List<Country> language = new ArrayList<>();
+        Country country = new Country();
+        String linguagens = "";
         try {
-            ResultSet rs4 = stmt4.executeQuery("select language from countrylanguage");
-            while (rs4.next()) {
-                Country country = new Country();
+            System.out.println("select language from countrylanguage as cl "
+                                            + "inner join country as c on cl.countrycode = c.code "
+                                            + "where c.name = '" + valor + "' or c.code = '" + valor + "' order by percentage desc");
+            ResultSet rs4 = stmt4.executeQuery("select language from countrylanguage as cl "
+                                            + "inner join country as c on cl.countrycode = c.code "
+                                            + "where c.name = '" + valor + "' or c.code = '" + valor + "' order by percentage desc");
+            
+            while (rs4.next()) {                
                 country.adicionar(rs4.getString("language"));
             }
+            country.ConcatenarLanguages();
+            linguagens = country.getConcatenaLanguages();
+            System.out.println(linguagens);
         } catch(Exception e) {
             e.printStackTrace();
         }
+        return linguagens;
     }
     
     public void Governments() {
@@ -115,41 +126,51 @@ public class JDBCCountryDAO implements CountryDAO {
     }
 
     //query de quantidade de cidades pelo nome    
-    public void Cidades(String nome) throws SQLException {
-        List<Country> countries = new ArrayList<>();
+    public int Cidades(String valor) throws SQLException {
+        int cities = 0;
         try {
             ResultSet rs2 = stmt2.executeQuery("SELECT COUNT(*) FROM city as ct "
                                             + "inner join country as c on ct.countrycode = c.code "
-                                            + "where c.name like '%" + nome + "%'");
+                                            + "where c.name like '%" + valor + "%'");
             while(rs2.next()) {
                 Country country = new Country();
-                country.setCities(rs2.getInt("COUNT(*)"));
+                country.setCities(rs2.getInt("COUNT(*)"));               
+                
+                cities = country.getCities();
+                System.out.println(cities);
+                
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return cities;
     }
     
     //QUERY QUANTIDADE DE CIDADES POR CODIGO
-    public void CidadesCode(String code) throws SQLException {
-        List<Country> countries = new ArrayList<>();
+    public int CidadesCode(String code) throws SQLException {
+        int cities = 0;
         try {
             ResultSet rs2 = stmt2.executeQuery("SELECT COUNT(*) FROM city as ct "
                                             + "inner join country as c on ct.countrycode = c.code "
                                             + "where c.code like '%" + code + "%'");
             while(rs2.next()) {
                 Country country = new Country();
-                country.setCities(rs2.getInt("COUNT(*)"));
+                country.setCities(rs2.getInt("COUNT(*)"));               
+                
+                cities = country.getCities();
+                System.out.println(cities);
+                
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return cities;
     }
   
     // QUERY DE LINGUAGES OFICIAIS POR NOME
-    public void LinguagemOficial(String nome) throws SQLException {
-        List<Country> countries = new ArrayList<>();
+    public String LinguagemOficial(String nome) throws SQLException {
         Country language = new Country();
+        String languages = "";
         try {
             ResultSet rs3 = stmt3.executeQuery("select language from countrylanguage as cl "
                                             + "inner join country as c on cl.countrycode = c.code "
@@ -157,36 +178,40 @@ public class JDBCCountryDAO implements CountryDAO {
 
             while(rs3.next()) {                
                language.adicionarOficial(rs3.getString("language")); 
-               countries.add(language);
             }
             language.Concatenar();
+            languages = language.getConcatenaOficial();
+            System.out.println(languages);
             
         } catch (Exception e) {
             e.printStackTrace();
         } 
+        return languages;
     }
     
     //LINGUAGENS OFICIAIS POR CODIGO
-    public void LinguagemOficialCode(String code) throws SQLException {
-        List<Country> countries = new ArrayList<>();
+    public String LinguagemOficialCode(String code) throws SQLException {
+        Country language = new Country();
+        String languages = "";
         try {
             ResultSet rs3 = stmt3.executeQuery("select language from countrylanguage as cl "
                                             + "inner join country as c on cl.countrycode = c.code "
-                                            + "where c.code like '%" + code + "%' and cl.isofficial = 't'");
-            System.out.println("select language from countrylanguage as cl "
-                                            + "inner join country as c on cl.countrycode = c.code "
-                                            + "where c.code like '%" + code + "%' and cl.isofficial = 't'");
-            while(rs3.next()) {
-                Country language = new Country();              
-                language.adicionar(rs3.getString("language"));       
-                countries.add(language);
+                                            + "where c.name like '%" + code + "%' and cl.isofficial = 't'");
+
+            while(rs3.next()) {                
+               language.adicionarOficial(rs3.getString("language")); 
             }
+            language.Concatenar();
+            languages = language.getConcatenaOficial();
+            System.out.println(languages);
+            
         } catch (Exception e) {
             e.printStackTrace();
         } 
+        return languages;
     }
     
-    //LISTA POR NOME (FALTA A PORCENTAGEM DE LINGUAS FALADAS)
+    //LISTA POR NOME
     @Override
     public List<Country> listarNome(String nome) throws SQLException {
         List<Country> countries = new ArrayList<>();
@@ -204,14 +229,10 @@ public class JDBCCountryDAO implements CountryDAO {
                 country.setLifeExpectancy(rs.getFloat("LifeExpectancy"));
                 country.setHeadOfState(rs.getString("HeadOfState"));
                 country.setGovernmentForm(rs.getString("GovernmentForm"));
-                this.Cidades(nome);
-                this.LinguagemOficial(nome);
-                this.Governments();
-                this.Languages();
-          
-                //ORDENAÇÃO DAS LÍNGUAS FALADAS POR PERCENTUAL
-
-               // countryLanguage.setPercentage(rs.getFloat("Percentage"));
+                country.setCities(this.Cidades(nome));
+                country.setConcatenaOficial(this.LinguagemOficial(nome));
+                country.setConcatenaLanguages(this.Languages(nome));
+ 
                 countries.add(country);
             }
          } catch (Exception e) {
@@ -222,7 +243,7 @@ public class JDBCCountryDAO implements CountryDAO {
         return countries;
     }
 
-    //LISTAGEM POR CODIGO (FALTA A PORCENTAGEM DE LINGUAS FALADAS)
+    //LISTAGEM POR CODIGO 
     @Override
     public List<Country> listarCod(String code) throws SQLException {
          List<Country> countries = new ArrayList<>();
@@ -239,9 +260,10 @@ public class JDBCCountryDAO implements CountryDAO {
                 country.setContinent(rs.getString("Continent"));
                 country.setLifeExpectancy(rs.getFloat("LifeExpectancy"));
                 country.setHeadOfState(rs.getString("HeadOfState"));
-                
-                this.CidadesCode(code);
-                this.LinguagemOficialCode(code);
+                country.setGovernmentForm(rs.getString("GovernmentForm"));
+                country.setCities(this.CidadesCode(code));
+                country.setConcatenaOficial(this.LinguagemOficialCode(code));
+                country.setConcatenaLanguages(this.Languages(code));
                 
                 countries.add(country);
             }

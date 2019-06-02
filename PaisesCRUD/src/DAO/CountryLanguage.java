@@ -6,7 +6,7 @@ import java.util.List;
 public class CountryLanguage {
     private String countryCode;
     private String language;
-    private String isOfficial = new String();
+    private String isOfficial;
     private float percentage;
 
     public String getCountryCode() {

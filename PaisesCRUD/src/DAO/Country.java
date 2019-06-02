@@ -24,6 +24,7 @@ public class Country {
     private List<String> languages = new ArrayList<>();
     private List<String> governments = new ArrayList<>();
     private String concatenaOficial = "";
+    private String concatenaLanguages = "";
 
     public String getCode() {
         return code;
@@ -184,8 +185,15 @@ public class Country {
     
     public void setConcatenaOficial(String concatenaOficial) {
         this.concatenaOficial = concatenaOficial;
+    }   
+
+    public String getConcatenaLanguages() {
+        return concatenaLanguages;
     }
-    
+
+    public void setConcatenaLanguages(String concatenaLanguages) {
+        this.concatenaLanguages = concatenaLanguages;
+    }
     
     public String adicionarOficial(String valor){
         languagesOfficial.add(valor);
@@ -210,6 +218,16 @@ public class Country {
                 concatenaOficial = concatenaOficial + ", " + str;
             }
         }
-        System.out.println("concatena" + concatenaOficial);
     }
+    
+    public void ConcatenarLanguages() {
+        for (String str : languages) {
+            if (concatenaLanguages.trim().isEmpty()) {
+                concatenaLanguages = str;
+            } else {
+                concatenaLanguages = concatenaLanguages + ", " + str;
+            }
+        }
+    }
+    
 }
