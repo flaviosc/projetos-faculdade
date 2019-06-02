@@ -31,6 +31,7 @@ public class Editar extends javax.swing.JFrame {
     public void populaCombobox(String name) throws ClassNotFoundException, SQLException{
         cboxContinentEdit.removeAllItems();
         cboxGovernmentForm.removeAllItems();
+        cboxLinguas.removeAllItems();
         JDBCCountryDAO dao = new JDBCCountryDAO();
         List<Country> dados = dao.listarNome(name);
         for (Country list : dados) {
@@ -43,7 +44,14 @@ public class Editar extends javax.swing.JFrame {
            for (String s : itensSeparados){
                cboxGovernmentForm.addItem(s);
            }
+           
+           
+           String[] itens = list.getConcatenaOficial().split(",");
+           for (String s : itens){
+               cboxLinguas.addItem(s);
+           }
             cboxContinentEdit.setSelectedItem(list.getContinent());
+            cboxLinguas.setSelectedItem(list.getLanguagesOfficial());
         } 
     }
       
@@ -88,10 +96,10 @@ public class Editar extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtCode2Edit = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
         btnCancelarEdit = new javax.swing.JButton();
         lblCodigoPais = new javax.swing.JLabel();
         txtCodigoPais = new javax.swing.JTextField();
+        cboxLinguas = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -156,13 +164,6 @@ public class Editar extends javax.swing.JFrame {
 
         jLabel7.setText("Línguas Oficiais: ");
 
-        jCheckBox1.setText("jCheckBox1");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
-
         btnCancelarEdit.setText("Cancelar");
         btnCancelarEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -179,6 +180,13 @@ public class Editar extends javax.swing.JFrame {
         txtCodigoPais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCodigoPaisActionPerformed(evt);
+            }
+        });
+
+        cboxLinguas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
+        cboxLinguas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxLinguasActionPerformed(evt);
             }
         });
 
@@ -208,8 +216,8 @@ public class Editar extends javax.swing.JFrame {
                                 .addComponent(jLabel7))
                             .addGap(21, 21, 21)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-                                .addComponent(txtCode2Edit)))
+                                .addComponent(txtCode2Edit)
+                                .addComponent(cboxLinguas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel4)
@@ -217,7 +225,7 @@ public class Editar extends javax.swing.JFrame {
                                 .addComponent(jLabel3))
                             .addGap(18, 18, 18)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cboxGovernmentForm, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cboxGovernmentForm, 0, 196, Short.MAX_VALUE)
                                 .addComponent(cboxContinentEdit, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtLifeExpectancyEdit)))
                         .addGroup(jPanel2Layout.createSequentialGroup()
@@ -262,8 +270,8 @@ public class Editar extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jCheckBox1))
-                .addGap(60, 60, 60)
+                    .addComponent(cboxLinguas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(62, 62, 62)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar)
                     .addComponent(btnCancelarEdit))
@@ -353,10 +361,6 @@ public class Editar extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cboxContinentEditActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
-
     private void txtCode2EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCode2EditActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCode2EditActionPerformed
@@ -364,6 +368,10 @@ public class Editar extends javax.swing.JFrame {
     private void txtCodigoPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoPaisActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigoPaisActionPerformed
+
+    private void cboxLinguasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxLinguasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxLinguasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -405,7 +413,7 @@ public class Editar extends javax.swing.JFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JComboBox cboxContinentEdit;
     private javax.swing.JComboBox cboxGovernmentForm;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JComboBox cboxLinguas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
