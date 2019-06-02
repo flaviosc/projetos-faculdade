@@ -478,7 +478,7 @@ public class Paises extends javax.swing.JFrame {
             Country country = new Country();
             try {
                 janela.EnviarDados(this, txtLocalName.getText(), txtName.getText(), txtCode2.getText(),
-                        txtContinent.getText(), txtLifeExpectancy.getText());
+                        txtContinent.getText(), txtLifeExpectancy.getText(), txtCode.getText());
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Paises.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {

@@ -35,15 +35,22 @@ public class JDBCCountryDAO implements CountryDAO {
         @Override
         public int alterar(Country country) throws SQLException {
             try {
-                return stmt.executeUpdate("UPDATE country AS c INNER JOIN countrylanguage AS cl ON c.Code = cl.CountryCode SET c.LocalName = '" 
-                                        + country.getLocalName() + "',c.Name = '"
-                                        + country.getName() + "', c.Continent = '"
-                                        + country.getContinent() + "', c.GovernmentForm = '"
-                                        + country.getGovernmentForm() + "', c.LifeExpectancy = '"
-                                        + country.getLifeExpectancy() + "', c.Code2 = '"
-                                        + country.getCode2() + "', cl.Language = '"
-                                        + country.getLanguagesOfficial()+ "' WHERE c.Code = '"
-                                        + country.getCode() + "' AND cl.IsOfficial = 'T'") ;
+                return stmt.executeUpdate(
+                        "UPDATE country AS c INNER JOIN countrylanguage AS cl "
+                                + "set c.LocalName='" + country.getLocalName() + "', "
+                                + "c.Name='" + country.getName() + "', "
+                                + "c.Continent='" + country.getContinent() + "', "
+                                + "c.GovernmentForm='" + country.getGovernmentForm() + "', "
+                                + "c.LifeExpectancy='" + country.getLifeExpectancy() + "', "
+                                + "c.Code2='" + country.getCode2() + "', " 
+                                + "cl.Language='" + country.getLanguages() 
+                                + "' WHERE c.Code = '" + country.getCode() 
+                                + "' AND c.Code = cl.CountryCode AND cl.IsOfficial = 'T'"
+                        
+                        
+                );
+                
+                
             } catch (SQLException e) {
                 throw e;
             } finally {
@@ -51,7 +58,6 @@ public class JDBCCountryDAO implements CountryDAO {
             }
         }
 
-//FALTA APAGAR AS RELAÇÕES
     @Override
     public int remover(Country country) throws SQLException {
         try {
