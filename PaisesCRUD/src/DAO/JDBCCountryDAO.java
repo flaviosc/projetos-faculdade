@@ -50,7 +50,6 @@ public class JDBCCountryDAO implements CountryDAO {
                         
                 );
                 
-                
             } catch (SQLException e) {
                 throw e;
             } finally {

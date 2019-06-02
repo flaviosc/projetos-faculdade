@@ -25,7 +25,7 @@ public class Country {
     private List<String> governments = new ArrayList<>();
     private String concatenaOficial = "";
     private String concatenaLanguages = "";
-    private final ArrayList<String> formaGovernoEnum = new ArrayList<String>(){
+    private final ArrayList<String> continentesEnum = new ArrayList<String>(){
         { add("Asia");
           add("Europe");
           add("North America");
@@ -36,9 +36,9 @@ public class Country {
         }
     };
 
-    public ArrayList<String> getFormaGovernoEnum() {
+    public ArrayList<String> getContinentesEnum() {
         
-        return formaGovernoEnum;
+        return continentesEnum;
     }
     
     

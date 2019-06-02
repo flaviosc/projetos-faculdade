@@ -28,19 +28,22 @@ public class Editar extends javax.swing.JFrame {
         
     }
     
-    public void populaListaContinentes(String name) throws ClassNotFoundException, SQLException{
+    public void populaCombobox(String name) throws ClassNotFoundException, SQLException{
         cboxContinentEdit.removeAllItems();
         cboxGovernmentForm.removeAllItems();
         JDBCCountryDAO dao = new JDBCCountryDAO();
-        List<Country> continentes = dao.listarNome(name);
-        for (Country list : continentes) {
-                        for(int i = 0;i<list.getFormaGovernoEnum().size(); i++ ){  
-                String str = (String) list.getFormaGovernoEnum().get(i).toString();  
+        List<Country> dados = dao.listarNome(name);
+        for (Country list : dados) {
+            for(int i = 0;i<list.getContinentesEnum().size(); i++ ){  
+                String str = (String) list.getContinentesEnum().get(i);  
                 cboxContinentEdit.addItem(str);  
            }
-        cboxContinentEdit.setSelectedItem(list.getContinent());
-        cboxGovernmentForm.addItem(list.getGovernmentForm());
-
+           
+           String[] itensSeparados =  list.getGovernmentForm().split(",");
+           for (String s : itensSeparados){
+               cboxGovernmentForm.addItem(s);
+           }
+            cboxContinentEdit.setSelectedItem(list.getContinent());
         } 
     }
       
@@ -57,7 +60,7 @@ public class Editar extends javax.swing.JFrame {
         }        
         
         txtLifeExpectancyEdit.setText(lifeExpectancy);
-        populaListaContinentes(name);
+        populaCombobox(name);
         txtCodigoPais.setText(code);
     }
     /**
@@ -205,8 +208,8 @@ public class Editar extends javax.swing.JFrame {
                                 .addComponent(jLabel7))
                             .addGap(21, 21, 21)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtCode2Edit)
-                                .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                                .addComponent(txtCode2Edit)))
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel4)
@@ -220,12 +223,10 @@ public class Editar extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addComponent(jLabel2)
                             .addGap(86, 86, 86)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtLocalNameEdit)
-                                .addComponent(txtNameEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtLocalNameEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                                .addComponent(txtNameEdit))))
+                    .addComponent(jLabel1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
