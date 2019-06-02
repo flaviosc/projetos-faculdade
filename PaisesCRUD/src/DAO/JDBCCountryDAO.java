@@ -31,32 +31,6 @@ public class JDBCCountryDAO implements CountryDAO {
         }
     }
 
-    @Override
-    public int inserir(Country country) throws SQLDataException, SQLException {
-       try {
-            return stmt.executeUpdate("INSERT INTO country (Code, Name, Continent, Region, SurfaceArea, IndepYear, Population, LifeExpectancy, GNP, GNPOld, LocalName, GovernmentForm, HeadOfState, Capital, Code2) VALUES (" 
-                                    + country.getCode() + ",'" 
-                                    + country.getName() + "','" 
-                                    + country.getContinent()+ "','"
-                                    + country.getRegion()+ "','"
-                                    + country.getSurfaceArea()+ "','"
-                                    + country.getIndepYear()+ "','"
-                                    + country.getPopulation()+ "','"
-                                    + country.getLifeExpectancy()+ "','"
-                                    + country.getGnp()+ "','"
-                                    + country.getGnpOld()+ "','"
-                                    + country.getLocalName()+ "','"
-                                    + country.getGovernmentForm()+ "','"
-                                    + country.getHeadOfState()+ "','"
-                                    + country.getCapital()+ "','"
-                                    + country.getCode2() + "')");
-        } catch (SQLException e) {
-            throw e;
-        } finally {
-            con.fecharConexao();
-        }
-    }
-
     //FALTA COLOCAR A LIGUAGEM AQUI
         @Override
         public int alterar(Country country) throws SQLException {

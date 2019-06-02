@@ -28,9 +28,20 @@ public class Editar extends javax.swing.JFrame {
         initComponents();
     }
     
+    public void populaListaContinentes(String name) throws ClassNotFoundException, SQLException{
+        JDBCCountryDAO dao = new JDBCCountryDAO();
+        List<Country> continentes = dao.listarNome(name);
+        for (Country list : continentes) {
+            cboxContinentEdit.addItem(list.getContinent());
+            System.out.println("continente: " + list.getContinent());
+            cboxGovernmentForm.addItem(list.getGovernmentForm());
+        }
+    }
+    
     private Paises dados;
 
-    public void EnviarDados(Paises dados, String localName, String name, String code2, String continent, String lifeExpectancy, String governmentForm) {
+    public void EnviarDados(Paises dados, String localName, String name, 
+            String code2, String continent, String lifeExpectancy) throws ClassNotFoundException, SQLException {
         txtCode2Edit.setEditable(false);
         txtLocalNameEdit.setText(localName);
         txtNameEdit.setText(name);
@@ -41,8 +52,7 @@ public class Editar extends javax.swing.JFrame {
         }        
         
         txtLifeExpectancyEdit.setText(lifeExpectancy);
-        
-        //FALTA COLOCAR OS COMBOBOX
+        populaListaContinentes(name);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -101,7 +111,12 @@ public class Editar extends javax.swing.JFrame {
 
         jLabel3.setText("Continente:");
 
-        cboxContinentEdit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboxContinentEdit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
+        cboxContinentEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxContinentEditActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Forma de Governo:");
 
@@ -285,10 +300,12 @@ public class Editar extends javax.swing.JFrame {
     }//GEN-LAST:event_txtLifeExpectancyEditActionPerformed
 
     private void cboxGovernmentFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxGovernmentFormActionPerformed
-        DefaultComboBoxModel modelo= (DefaultComboBoxModel) cboxGovernmentForm.getModel(); 
-        Country country = new Country();
-        cboxGovernmentForm.addItem(country.getGovernmentForm());
+    
     }//GEN-LAST:event_cboxGovernmentFormActionPerformed
+
+    private void cboxContinentEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxContinentEditActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxContinentEditActionPerformed
 
     /**
      * @param args the command line arguments

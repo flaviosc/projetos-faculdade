@@ -88,7 +88,7 @@ public class Paises extends javax.swing.JFrame {
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisa por Nome"));
 
-        jLabel7.setText("Nome ou Código: ");
+        jLabel7.setText("Nome: ");
 
         txtNomePesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -474,8 +474,14 @@ public class Paises extends javax.swing.JFrame {
                 janela.setResizable(false);
             }
             Country country = new Country();
-            janela.EnviarDados(this, txtLocalName.getText(), txtName.getText(), txtCode2.getText(), 
-                    txtContinent.getText(), txtLifeExpectancy.getText(), country.getGovernmentForm());
+            try {
+                janela.EnviarDados(this, txtLocalName.getText(), txtName.getText(), txtCode2.getText(),
+                        txtContinent.getText(), txtLifeExpectancy.getText());
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Paises.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(Paises.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
     }//GEN-LAST:event_btnEditarActionPerformed
