@@ -199,7 +199,7 @@ public class JDBCCountryDAO implements CountryDAO {
         try {
             ResultSet rs3 = stmt3.executeQuery("select language from countrylanguage as cl "
                                             + "inner join country as c on cl.countrycode = c.code "
-                                            + "where c.name like '%" + code + "%' and cl.isofficial = 't'");
+                                            + "where c.code like '%" + code + "%' and cl.isofficial = 't'");
 
             while(rs3.next()) {                
                language.adicionarOficial(rs3.getString("language")); 

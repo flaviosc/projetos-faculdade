@@ -519,7 +519,8 @@ public class Paises extends javax.swing.JFrame {
         txtHeadOfState.setText(tableFormulario.getValueAt(selecao, 7).toString());
         txtOfficialLanguage.setText(tableFormulario.getValueAt(selecao, 8).toString());
         txtLanguage.setText(tableFormulario.getValueAt(selecao, 9).toString());
-        
+        txtNomePesquisa.setText(tableFormulario.getValueAt(selecao, 1).toString());
+        txtCodePesquisa.setText(tableFormulario.getValueAt(selecao, 2).toString());
     }//GEN-LAST:event_tableFormularioMouseClicked
 
     private void txtOfficialLanguageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOfficialLanguageActionPerformed
@@ -540,7 +541,11 @@ public class Paises extends javax.swing.JFrame {
             Country country = new Country();
 
             for (Country list : countries) {
-                model.addRow(new Object[] {list.getLocalName(), list.getName(), list.getCode(), list.getCode2(), list.getContinent(), list.getLifeExpectancy(), list.getCities(), list.getConcatenaOficial()});
+                model.addRow(new Object[] {list.getLocalName(), list.getName(), 
+                    list.getCode(), list.getCode2(), list.getContinent(), 
+                    list.getLifeExpectancy(), list.getCities(), 
+                    list.getHeadOfState(), list.getConcatenaOficial(),
+                    list.getConcatenaLanguages()});
             }
             
         } catch (ClassNotFoundException ex) {
