@@ -17,6 +17,8 @@ public class JDBCCountryDAO implements CountryDAO {
     private Statement stmt3;
     private Statement stmt4;
     private Statement stmt5;
+    private Statement stmt6;
+    private Statement stmt7;
     
     public JDBCCountryDAO() throws SQLDataException, ClassNotFoundException, SQLException {
         con = new Conexao();
@@ -26,6 +28,8 @@ public class JDBCCountryDAO implements CountryDAO {
             stmt3 = (Statement) con.getCon().createStatement();
             stmt4 = (Statement) con.getCon().createStatement();
             stmt5 = (Statement) con.getCon().createStatement();
+            stmt6 = (Statement) con.getCon().createStatement();
+            stmt7 = (Statement) con.getCon().createStatement();
         } catch (SQLDataException e) {
             throw e;
         }
@@ -91,16 +95,52 @@ public class JDBCCountryDAO implements CountryDAO {
         return linguagens;
     }
     
-    public void Governments() {
+    public String Governments() {
+        Country country = new Country();
+        String governmetsForm = "";
         try {
-            ResultSet rs5 = stmt5.executeQuery("select governmentform from country");
-            while(rs5.next()) {
-                Country country = new Country();
-                country.adicionarGovernments(rs5.getString("governmentform"));
+            ResultSet rs5 = stmt5.executeQuery("select distinct governmentform from country order by governmentform");
+            while(rs5.next()) {                
+                country.adicionarGovernments(rs5.getString("governmentform"));                
             }
+            country.ConcatenarGovernments();
+            governmetsForm = country.getConcatenaGovernments();
         } catch(Exception e) {
             e.printStackTrace();
         }
+        return governmetsForm;
+    }
+    
+    public String Continents() {
+        Country country = new Country();
+        String continent = "";
+        try {
+            ResultSet rs6 = stmt6.executeQuery("select distinct continent from country order by continent");
+            while(rs6.next()) {                
+                country.adicionarContinents(rs6.getString("continent"));                
+            }
+            country.ConcatenarContinents();
+            continent = country.getConcatenaContinents();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return continent;
+    }
+    
+    public String LanguagesTotal() {
+        Country country = new Country();
+        String languages = "";
+        try {
+            ResultSet rs7 = stmt7.executeQuery("select distinct language from countrylanguage order by language");
+            while(rs7.next()) {                
+                country.adicionarLanguagesTotal(rs7.getString("language"));                
+            }
+            country.ConcatenarLanguagesTotal();
+            languages = country.getConcatenaLanguagesTotal();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return languages;
     }
 
     //query de quantidade de cidades pelo nome    
@@ -207,6 +247,9 @@ public class JDBCCountryDAO implements CountryDAO {
                 country.setCities(this.Cidades(nome));
                 country.setConcatenaOficial(this.LinguagemOficial(nome));
                 country.setConcatenaLanguages(this.Languages(nome));
+                country.setConcatenaGovernments(this.Governments());
+                country.setConcatenaContinents(this.Continents());
+                country.setConcatenaLanguagesTotal(this.LanguagesTotal());
  
                 countries.add(country);
             }
@@ -238,6 +281,9 @@ public class JDBCCountryDAO implements CountryDAO {
                 country.setCities(this.CidadesCode(code));
                 country.setConcatenaOficial(this.LinguagemOficialCode(code));
                 country.setConcatenaLanguages(this.Languages(code));
+                country.setConcatenaGovernments(this.Governments());
+                country.setConcatenaContinents(this.Continents());
+                country.setConcatenaLanguagesTotal(this.LanguagesTotal());
                 
                 countries.add(country);
             }

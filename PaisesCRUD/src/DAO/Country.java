@@ -22,23 +22,55 @@ public class Country {
     private int cities;
     private List<String> languagesOfficial = new ArrayList<>();
     private List<String> languages = new ArrayList<>();
+    private List<String> languagesTotal = new ArrayList<>();
     private List<String> governments = new ArrayList<>();
+    private List<String> continents = new ArrayList<>();
     private String concatenaOficial = "";
     private String concatenaLanguages = "";
-    private final ArrayList<String> continentesEnum = new ArrayList<String>(){
-        { add("Asia");
-          add("Europe");
-          add("North America");
-          add("Africa");
-          add("Oceania");
-          add("Antarctica");
-          add("South America");
-        }
-    };
+    private String concatenaGovernments = "";
+    private String concatenaContinents = "";
+     private String concatenaLanguagesTotal = "";
 
-    public ArrayList<String> getContinentesEnum() {
+     
+    public List<String> getLanguagesTotal() {
+        return languagesTotal;
+    }
+
+    public void setLanguagesTotal(List<String> languagesTotal) {
+        this.languagesTotal = languagesTotal;
+    }
+
+    public String getConcatenaLanguagesTotal() {
+        return concatenaLanguagesTotal;
+    }
+
+    public void setConcatenaLanguagesTotal(String concatenaLanguagesTotal) {
+        this.concatenaLanguagesTotal = concatenaLanguagesTotal;
+    }
+
+    
+    public String getConcatenaContinents() {
+        return concatenaContinents;
+    }
+
+    public void setConcatenaContinents(String concatenaContinents) {
+        this.concatenaContinents = concatenaContinents;
+    }
         
-        return continentesEnum;
+    public List<String> getContinents() {
+        return continents;
+    }
+
+    public void setContinents(List<String> continents) {
+        this.continents = continents;
+    }    
+    
+    public String getConcatenaGovernments() {
+        return concatenaGovernments;
+    }
+
+    public void setConcatenaGovernments(String concatenaGovernments) {
+        this.concatenaGovernments = concatenaGovernments;
     }
     
     
@@ -226,6 +258,16 @@ public class Country {
         return valor;
     }
     
+    public String adicionarContinents(String valor) {
+        continents.add(valor);
+        return valor;
+    }
+    
+    public String adicionarLanguagesTotal(String valor) {
+        languagesTotal.add(valor);
+        return valor;
+    }
+    
     public void Concatenar() {
         for (String str : languagesOfficial) {
             if (concatenaOficial.trim().isEmpty()) {
@@ -242,6 +284,36 @@ public class Country {
                 concatenaLanguages = str;
             } else {
                 concatenaLanguages = concatenaLanguages + ", " + str;
+            }
+        }
+    }
+    
+    public void ConcatenarGovernments() {
+        for (String str : governments) {
+            if (concatenaGovernments.trim().isEmpty()) {
+                concatenaGovernments = str;
+            } else {
+                concatenaGovernments = concatenaGovernments + ", " + str;
+            }
+        }
+    }
+    
+    public void ConcatenarContinents() {
+        for (String str : continents) {
+            if (concatenaContinents.trim().isEmpty()) {
+                concatenaContinents = str;
+            } else {
+                concatenaContinents = concatenaContinents + ", " + str;
+            }
+        }
+    }
+    
+    public void ConcatenarLanguagesTotal() {
+        for (String str : languagesTotal) {
+            if (concatenaLanguagesTotal.trim().isEmpty()) {
+                concatenaLanguagesTotal = str;
+            } else {
+                concatenaLanguagesTotal = concatenaLanguagesTotal + ", " + str;
             }
         }
     }

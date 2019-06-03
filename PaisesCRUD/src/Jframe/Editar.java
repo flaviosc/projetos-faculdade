@@ -35,21 +35,22 @@ public class Editar extends javax.swing.JFrame {
         JDBCCountryDAO dao = new JDBCCountryDAO();
         List<Country> dados = dao.listarNome(name);
         for (Country list : dados) {
-            for(int i = 0;i<list.getContinentesEnum().size(); i++ ){  
-                String str = (String) list.getContinentesEnum().get(i);  
-                cboxContinentEdit.addItem(str);  
-           }
+            String[] itensCont =  list.getConcatenaContinents().split(",");
+            for (String s : itensCont){
+               cboxContinentEdit.addItem(s);
+            }
            
-           String[] itensSeparados =  list.getGovernmentForm().split(",");
+           String[] itensSeparados =  list.getConcatenaGovernments().split(",");
            for (String s : itensSeparados){
                cboxGovernmentForm.addItem(s);
            }
            
            
-           String[] itens = list.getConcatenaOficial().split(",");
+           String[] itens = list.getConcatenaLanguagesTotal().split(",");
            for (String s : itens){
                cboxLinguas.addItem(s);
            }
+            cboxGovernmentForm.setSelectedItem(list.getGovernmentForm());
             cboxContinentEdit.setSelectedItem(list.getContinent());
             cboxLinguas.setSelectedItem(list.getLanguagesOfficial());
         } 
